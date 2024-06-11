@@ -1,17 +1,27 @@
+import React, { useState } from "react";
 import ChildComponent from "./ChildComponent";
-import { useState } from "react";
 
-export default function ParentComponent() {
-  const [color, setColor] = useState("");
+function ParentComponent() {
+  // State för att hålla den valda färgen
+  const [favoriteColor, setFavoriteColor] = useState("");
 
-  function handleColor(color) {
-    setColor(color);
-  }
+  // Callback-funktion för att uppdatera den valda färgen
+  const handleColorChange = (color) => {
+    setFavoriteColor(color);
+  };
 
   return (
     <div>
-      <p>{color}</p>
-      <ChildComponent handleColor={handleColor} />
+      <h2>Välj din favoritfärg</h2>
+      <ChildComponent onColorChange={handleColorChange} />
+      {favoriteColor && (
+        <p>
+          Din favoritfärg är:{" "}
+          <span style={{ color: favoriteColor }}>{favoriteColor}</span>
+        </p>
+      )}
     </div>
   );
 }
+
+export default ParentComponent;

@@ -1,19 +1,27 @@
-import { useState } from "react";
+// QuestionComponent.jsx
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setQuestion } from "./questionSlice";
+import { setQuestion } from "./store";
 
-export default function QuestionComponent() {
-  const [questionText, setQuestionText] = useState();
+function QuestionComponent() {
+  const [questionText, setQuestionText] = useState("");
   const dispatch = useDispatch();
 
-  function handleSend() {
+  const handleSubmit = () => {
     dispatch(setQuestion(questionText));
-  }
+    setQuestionText("");
+  };
 
   return (
     <div>
-      <input type="text" onChange={(e) => setQuestionText(e.target.value)} />
-      <button onClick={handleSend}>Send Question</button>
+      <input
+        type="text"
+        value={questionText}
+        onChange={(e) => setQuestionText(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Ställ frågan</button>
     </div>
   );
 }
+
+export default QuestionComponent;

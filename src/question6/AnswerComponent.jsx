@@ -1,26 +1,31 @@
-import { useState } from "react";
+// AnswerComponent.jsx
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setAnswer } from "./questionSlice";
+import { setAnswer } from "./store";
 
-export default function AnswerComponent() {
+function AnswerComponent() {
+  const [answerText, setAnswerText] = useState("");
+  const dispatch = useDispatch();
   const question = useSelector((state) => state.question.question);
   const answer = useSelector((state) => state.question.answer);
 
-  const [inputAnswer, setInputAnswer] = useState("");
-  const dispatch = useDispatch();
-
-  function handleAnswer() {
-    dispatch(setAnswer(inputAnswer));
-  }
+  const handleSubmit = () => {
+    dispatch(setAnswer(answerText));
+    setAnswerText("");
+  };
 
   return (
     <div>
-      <p>Fråga: {question}</p>
-
-      <input type="text" onChange={(e) => setInputAnswer(e.target.value)} />
-      <button onClick={handleAnswer}> Svara</button>
-
+      <h3>Fråga: {question}</h3>
+      <input
+        type="text"
+        value={answerText}
+        onChange={(e) => setAnswerText(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Svara på frågan</button>
       <p>Svar: {answer}</p>
     </div>
   );
 }
+
+export default AnswerComponent;

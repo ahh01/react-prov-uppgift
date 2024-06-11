@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
-export const ColorContext = createContext();
+const ColorContext = createContext();
 
-export function ColorProvider({ children }) {
+export const ColorProvider = ({ children }) => {
   const [color, setColor] = useState("");
 
   return (
@@ -10,4 +10,6 @@ export function ColorProvider({ children }) {
       {children}
     </ColorContext.Provider>
   );
-}
+};
+
+export default ColorContext;

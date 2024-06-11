@@ -3,8 +3,6 @@
 // hook i React, useFetchData, för att hämta data från
 //en angiven URL. Din hook ska enbart hantera datahämtning och laddningsstatus.
 
-import { useEffect, useState } from "react";
-
 // Skapa en custom hook som heter: useFetchData, som tar en URL som argument
 // och använder fetch för att hämta data.
 // Hooken ska returnera ett objekt med två egenskaper: data (datan som hämtats)
@@ -13,48 +11,18 @@ import { useEffect, useState } from "react";
 // Använd https://jsonplaceholder.typicode.com/users som test-URL för att demonstrera
 // hur din hook kan användas i en komponent för att visa användardata och en
 // laddningsindikator.
+// UserList.jsx
+// src/useFetchData.js
+import React from "react";
+import UserList from "./UserList";
 
-function useFetchData(url) {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function getData() {
-      const response = await fetch(url);
-      const data = await response.json();
-      setData(data);
-      setIsLoading(false);
-    }
-
-    getData();
-  }, [url]);
-
-  return { data, isLoading };
-}
-
-// Exempel på användning:
-
-function UserList() {
-  const { data, isLoading } = useFetchData(
-    "https://jsonplaceholder.typicode.com/users"
-  );
-
-  if (isLoading) return <div>Laddar...</div>;
-  return (
-    <ul>
-      {data.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  );
-}
-
-function App() {
+const App = () => {
   return (
     <div>
+      <h1>App</h1>
       <UserList />
     </div>
   );
-}
+};
 
 export default App;

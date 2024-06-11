@@ -15,16 +15,23 @@
 // på frågan. När svaret skickas, ska det också lagras i Redux store och visas
 // under inputfältet.
 
-import { store } from "./store";
-import { Provider } from "react-redux";
-import QuestionComponent from "./QuestionComponent";
-import AnswerComponent from "./AnswerComponent";
 
-export default function App() {
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
+import QuestionComponent from './QuestionComponent';
+import AnswerComponent from './AnswerComponent';
+
+function App() {
   return (
     <Provider store={store}>
-      <QuestionComponent />
-      <AnswerComponent />
+      <div>
+        <h1>Fråga och Svar med Redux Toolkit</h1>
+        <QuestionComponent />
+        <AnswerComponent />
+      </div>
     </Provider>
   );
 }
+
+export default App;

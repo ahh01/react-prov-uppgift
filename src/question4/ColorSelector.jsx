@@ -1,16 +1,25 @@
-import { useContext } from "react";
-import { ColorContext } from "./colorContext";
+import React, { useContext } from "react";
+import ColorContext from "./ColorContext";
 
-export default function ColorSelector() {
+function ColorSelector() {
   const { setColor } = useContext(ColorContext);
+
+  const handleChange = (event) => {
+    setColor(event.target.value);
+  };
 
   return (
     <div>
-      <select onChange={(e) => setColor(e.target.value)}>
-        <option value="red">Red</option>
-        <option value="green">Green</option>
-        <option value="blue">Blue</option>
+      <select onChange={handleChange}>
+        <option value="">Välj en färg</option>
+        <option value="röd">Röd</option>
+        <option value="grön">Grön</option>
+        <option value="blå">Blå</option>
+        <option value="gul">Gul</option>
+        <option value="lila">Lila</option>
       </select>
     </div>
   );
 }
+
+export default ColorSelector;

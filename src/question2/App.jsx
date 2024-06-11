@@ -3,39 +3,40 @@
 // Från början visas användarens nuvarande e-postadress.
 // Bredvid e-postadressen ska det finnas en "Redigera"-knapp.
 
-import { useState } from "react";
-
 // När "Redigera" klickas, visa ett inputfält för att skriva in en ny e-postadress
 // och byt "Redigera"-knappen till en "Spara"-knapp.
 // När "Spara" klickas, uppdatera e-postadressen och visa den uppdaterade adressen.
+import React, { useState } from "react";
 
 function App() {
-  const [email, setEmail] = useState("david@chas.se");
-  const [edit, setEdit] = useState(false);
+  const [email, setEmail] = useState("example@example.com");
+  const [isEditing, setIsEditing] = useState(false);
+  const [newEmail, setNewEmail] = useState(email);
 
-  function renderEmail() {
-    if (edit) {
-      return (
-        <>
-          <input
-            type="text"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-          <button onClick={() => setEdit(!edit)}>Save</button>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <p>{email}</p>
-          <button onClick={() => setEdit(!edit)}>Edit</button>
-        </>
-      );
+  const handleInputChange = (event) => {
+    setNewEmail(event.target.value);
+  };
+
+  const handleEditSaveClick = () => {
+    if (isEditing) {
+      setEmail(newEmail);
     }
-  }
 
-  return <div>{renderEmail()}</div>;
+    setIsEditing(!isEditing);
+  };
+
+  return (
+    <div>
+      {isEditing ? (
+        <input type="email" value={newEmail} onChange={handleInputChange} />
+      ) : (
+        <span>{email}</span>
+      )}
+      <button onClick={handleEditSaveClick}>
+        {isEditing ? "Spara" : "Redigera"}
+      </button>
+    </div>
+  );
 }
 
 export default App;

@@ -1,8 +1,25 @@
-import { configureStore } from "@reduxjs/toolkit";
-import questionReducer from "./questionSlice";
+// store.js
+import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-export const store = configureStore({
+const questionSlice = createSlice({
+  name: "question",
+  initialState: {
+    question: "",
+    answer: "",
+  },
+  reducers: {
+    setQuestion(state, action) {
+      state.question = action.payload;
+    },
+    setAnswer(state, action) {
+      state.answer = action.payload;
+    },
+  },
+});
+
+export const { setQuestion, setAnswer } = questionSlice.actions;
+export default configureStore({
   reducer: {
-    question: questionReducer,
+    question: questionSlice.reducer,
   },
 });
